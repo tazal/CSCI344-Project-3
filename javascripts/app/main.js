@@ -1,8 +1,22 @@
 var main = function () {
   "use strict";
-  console.log("hello world");
+  var stack = new Array();
+   
   $.getJSON("all.json", function (todos) {
-    
+    var isUnique = function (string) {
+      var i;
+      for (i = 0; i < todos.length; i += 1) {
+        if (string === stack[i]) {
+          console.log("nope");
+          return false;
+        } else {
+          stack.push(string);
+          console.log("yep");
+          return true;
+        }
+      }
+    };
+  
     //populates Tab 1
     todos.forEach(function (todo) {
       $("#tab1").append("<h3>" + todo.description + "</h3>" + "<h4>tagged: </h4>");
@@ -13,21 +27,13 @@ var main = function () {
     
     //populates Tab 2
     todos.forEach(function (todo) {
-      todo.categories.forEach(function (category) {
+      todo.categories.forEach(function (category) {        
         if (isUnique(category)) {
           $("#tab2").append("<h3>" + category + "</h3>");
         }
       });
     });  
   });
-  
-  var isUnique = function (string) {
-    var i,
-      stack = new Array(1);
-    for (i = 0; i < todos.length; i++) {
-      console.log(todos[i]);
-    };
-  }
 
   var setUpClickHandler = function (anchor) {
     anchor.click(function () {
@@ -42,6 +48,7 @@ var main = function () {
   };
   
   setUpClickHandler($(".tabcontainer .tab"));
+  
 };
 
 $(document).ready(main);
