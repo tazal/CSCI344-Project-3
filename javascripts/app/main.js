@@ -4,7 +4,7 @@ var main = function () {
 
   $.getJSON("all.json", function (todos) {
     
-    //populates Tab 1
+    //populates All tab
     todos.forEach(function (todo) {
       $("#tab1").append("<h3>" + todo.description + "</h3>" + "<h4>tagged: </h4>");
       todo.categories.forEach(function (category) {
@@ -12,10 +12,10 @@ var main = function () {
       });
       $("#tab1").append("<br />");
     });
+    //end All tab
     
-    //populates Tab 2
-    //TODO: Create a function that searches all.json tag-by-tag, making an array for each unique tag.
     
+    //populates Categories tab    
     todos.forEach(function (todo) {
       todo.categories.forEach(function (category) {        
         stack.push(category);
@@ -24,13 +24,12 @@ var main = function () {
     
     //http://stackoverflow.com/questions/5381621/jquery-function-to-get-all-unique-elements-from-an-array
     var unique=stack.filter(function (itm, i, a){
-      return i==a.indexOf(itm);
+      return i === a.indexOf(itm);
     });
     
-    var i = 0;
-    
+    var i = 0;    
     unique.forEach(function (tag) {
-      $("#tab2").append("<div id =" + unique[i] + "><h3>" + tag + "</h3></div>");
+      $("#tab2").append("<div id =" + unique[i] + "><h3>" + tag + "</h3></div><br />");
       i += 1;
     });
     
@@ -39,6 +38,12 @@ var main = function () {
         $("#" + category).append("<p>" + todo.description + "</p>");
       });
     });
+    //end Categories tab
+    
+    
+    //Add tab
+    
+    //end Add tab
     
   });
 
