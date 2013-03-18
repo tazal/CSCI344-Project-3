@@ -1,22 +1,9 @@
 var main = function () {
   "use strict";
   var stack = new Array();
-   
+
   $.getJSON("all.json", function (todos) {
-    var isUnique = function (string) {
-      var i;
-      for (i = 0; i < todos.length; i += 1) {
-        if (string === stack[i]) {
-          console.log("nope");
-          return false;
-        } else {
-          stack.push(string);
-          console.log("yep");
-          return true;
-        }
-      }
-    };
-  
+    
     //populates Tab 1
     todos.forEach(function (todo) {
       $("#tab1").append("<h3>" + todo.description + "</h3>" + "<h4>tagged: </h4>");
@@ -26,13 +13,24 @@ var main = function () {
     });
     
     //populates Tab 2
+    //TODO: Create a function that searches all.json tag-by-tag, making an array for each unique tag.
+    
     todos.forEach(function (todo) {
       todo.categories.forEach(function (category) {        
-        if (isUnique(category)) {
-          $("#tab2").append("<h3>" + category + "</h3>");
-        }
+        stack.push(category);
       });
-    });  
+    });
+    
+    //http://stackoverflow.com/questions/5381621/jquery-function-to-get-all-unique-elements-from-an-array
+    var unique=stack.filter(function (itm, i, a){
+      return i==a.indexOf(itm);
+    });
+    
+    console.log(unique);
+    
+    unique.forEach(function (category) {
+        $("#tab2").append("<h3>" + category + "</h3>")
+    });
   });
 
   var setUpClickHandler = function (anchor) {
