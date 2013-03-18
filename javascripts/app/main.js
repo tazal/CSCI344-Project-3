@@ -10,6 +10,7 @@ var main = function () {
       todo.categories.forEach(function (category) {
         $("#tab1").append("<p>" + category + "</p>");
       });
+      $("#tab1").append("<br />");
     });
     
     //populates Tab 2
@@ -26,11 +27,19 @@ var main = function () {
       return i==a.indexOf(itm);
     });
     
-    console.log(unique);
+    var i = 0;
     
-    unique.forEach(function (category) {
-        $("#tab2").append("<h3>" + category + "</h3>")
+    unique.forEach(function (tag) {
+      $("#tab2").append("<div id =" + unique[i] + "><h3>" + tag + "</h3></div>");
+      i += 1;
     });
+    
+    todos.forEach(function(todo) {
+      todo.categories.forEach(function (category) {
+        $("#" + category).append("<p>" + todo.description + "</p>");
+      });
+    });
+    
   });
 
   var setUpClickHandler = function (anchor) {
