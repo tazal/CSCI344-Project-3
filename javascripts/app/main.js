@@ -6,6 +6,7 @@
     main = function () {
       var stack = [],
         i = 0,
+        firstTabCounter = 0,
         setUpClickHandler = function (anchor) {
           anchor.click(function () {
             var target = $(this).attr("href");
@@ -22,16 +23,17 @@
 
         //populates All tab
         todos.forEach(function (todo) {
-          $("#tab1").append("<div class='todo'><h3>" + todo.description + " <button class='destroy'>x</button></h3>" + "<h4>tagged: </h4><p>");
+          $("#tab1").append("<div id='todos" + firstTabCounter + "'></div>")
+          $("#tab1 #todos" + firstTabCounter).append("<h3>" + todo.description + " <button class='destroy'>x</button></h3>" + "<h4>tagged: </h4>");
           todo.categories.forEach(function (category) {
-            $("#tab1").append(category + " ");
+            $("#tab1 #todos" + firstTabCounter).append("<p>" + category + "</p>");
           });
-          $("#tab1").append("</p><br /></div>");
+          $("#tab1 #todos" + firstTabCounter).append("<br /><hr />");
+          firstTabCounter += 1;
         });
 
         $('body').on("click", ".destroy", function () {
-          $(this).parent().parent().fadeOut();
-          console.log("clicked");
+          $(this).parent().parent().remove();          
         });
         //end All tab
 

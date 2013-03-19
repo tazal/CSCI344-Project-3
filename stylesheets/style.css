@@ -31,6 +31,10 @@ h1, h3, h4 {
   font-family: "Inder", sans-serif;
 }
 
+hr {
+  border-color: #000;
+}
+
 .tabcontainer a {
   text-decoration: none;
   color: #000000;
