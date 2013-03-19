@@ -22,11 +22,11 @@
 
         //populates All tab
         todos.forEach(function (todo) {
-          $("#tab1").append("<h3>" + todo.description + "</h3>" + "<h4>tagged: </h4>");
+          $("#tab1").append("<h3>" + todo.description + "</h3>" + "<h4>tagged: </h4><p>");
           todo.categories.forEach(function (category) {
-            $("#tab1").append("<p>" + category + "</p>");
+            $("#tab1").append(category + " ");
           });
-          $("#tab1").append("<br />");
+          $("#tab1").append("</p><br />");
         });
         //end All tab
 
