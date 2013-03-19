@@ -22,11 +22,16 @@
 
         //populates All tab
         todos.forEach(function (todo) {
-          $("#tab1").append("<h3>" + todo.description + "</h3>" + "<h4>tagged: </h4><p>");
+          $("#tab1").append("<div class='todo'><h3>" + todo.description + " <button class='destroy'>x</button></h3>" + "<h4>tagged: </h4><p>");
           todo.categories.forEach(function (category) {
             $("#tab1").append(category + " ");
           });
-          $("#tab1").append("</p><br />");
+          $("#tab1").append("</p><br /></div>");
+        });
+
+        $('body').on("click", ".destroy", function () {
+          $(this).parent().parent().fadeOut();
+          console.log("clicked");
         });
         //end All tab
 
@@ -44,7 +49,7 @@
         });
 
         unique.forEach(function (tag) {
-          $("#tab2").append("<div id =" + unique[i] + "><h3>" + tag + "</h3></div><br />");
+          $("#tab2").append("<div id ='" + unique[i] + "'><h3>" + tag + "</h3></div><br />");
           i += 1;
         });
 
@@ -62,6 +67,7 @@
       });
 
       setUpClickHandler($(".tabcontainer .tab"));
+      
 
     };
 
