@@ -11,9 +11,12 @@
           anchor.click(function () {
             var target = $(this).attr("href");
 
-            $(".active").removeClass("active");
+            $(".active").addClass("inactive").removeClass("active");
             $(this).addClass("active");
-            $("#" + target).addClass("active");
+            $("#" + target).addClass("active").removeClass("inactive");
+            $(".content .inactive").slideUp(550, function() {
+              $(".content .active").slideDown(550);
+            });
 
             return false;
           });
@@ -90,8 +93,6 @@
       });
 
       setUpClickHandler($(".tabcontainer .tab"));
-
-
     };
 
   $(document).ready(main);

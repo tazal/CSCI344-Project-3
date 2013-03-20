@@ -44,33 +44,28 @@ hr {
 
 .tabcontainer {
   margin-top: 20px;
-  margin-bottom: 6px;
 }
 
-.tabcontainer .tab {
-  background: #347;
-  padding: 7px;
-  color: #FFF;
-}
-
-.tabcontainer .active {
+#tab1header {
   background: #BDF;
-  border: 1px solid black;
-  border-bottom-width: 0;
-  color: #000;
+  padding: 7px;
+}
+
+#tab2header {
+  background: #DBF;
+  padding: 7px;
+}
+
+#tab3header {
+  background: #FBD;
+  padding: 7px;
 }
 
 .content .tab {
   display: none; 
 }
 
-.content .active {
-  display: block;
-}
-
 .content {
-  background: #BDF;
-  border: 1px solid black;
   padding: 0px;
   width: 500px;
   margin-right: auto;
@@ -82,6 +77,21 @@ hr {
   display: none;
 }
 
+#tab1 {
+  background: #BDF;
+  margin: 7px;
+  padding: 1px;
+}
+
+#tab2 {
+  background:#DBF;
+  margin: 7px;
+  padding: 1px;
+}
+
 #tab3 {
+  background: #FBD;
   height: 170px;
+  margin: 7px;
+  padding: 1px;
 }
