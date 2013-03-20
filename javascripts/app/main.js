@@ -39,18 +39,21 @@
 
         //populates All and Categories tabs
         todos.forEach(function (todo) {
-          $("#tab1").append("<div id='todos" + tabCounter + "'></div>");
-          $("#tab1 #todos" + tabCounter).append("<h3>" + todo.description + " <button class='destroy'>x</button></h3>" + "<h4>tagged: </h4>");
+          $("#tab1").append("<div class=" + tabCounter + "></div>");
+          $("#tab1 ." + tabCounter).append("<h3>" + todo.description + " <button class='destroy'>x</button></h3>" + "<h4>tagged: </h4>");
           todo.categories.forEach(function (category) {
-            //for tab 1
-            $("#tab1 #todos" + tabCounter).append("<p>" + category + "</p>");
-            //for tab 2
-            $("#" + category + " br").before("<span class='" + todo.description + "'><p>" + todo.description 
+            //for All tab
+            $("#tab1 ." + tabCounter).append("<p>" + category + "</p>");
+            //for Categories tab
+            $("#tab2 #" + category + " br").before("<span class='" + tabCounter + "'><p>" + todo.description 
             + " <button class='destroy'>x</button></p></span>");
           });
-          $("#tab1 #todos" + tabCounter).append("<br /><hr />");
+          //for All tab
+          $("#tab1 ." + tabCounter).append("<br /><hr />");
+          tabCounter += 1;
         });        
         
+        //for both tabs
         $('body').on("click", ".destroy", function () {
             $(this).parent().parent().remove();
         });
