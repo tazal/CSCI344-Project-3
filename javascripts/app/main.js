@@ -33,7 +33,7 @@
         });
 
         unique.forEach(function (tag) {
-          $("#tab2").append("<div id ='" + unique[i] + "'><h3>" + tag + "</h3><br /><hr /></div>");
+          $("#tab2").append("<div id ='" + unique[i].split(" ").join("") + "'><h3>" + tag + "</h3><br /><hr /></div>");
           i += 1;
         });
 
@@ -45,7 +45,7 @@
             //for All tab
             $("#tab1 ." + tabCounter + ".todo").append("<p>" + category + "</p>");
             //for Categories tab
-            $("#tab2 #" + category + " br").before("<span class='" + tabCounter + "'><p>" + todo.description + " <button class='destroy " + tabCounter + "'>x</button></p></span>");
+            $("#tab2 #" + category + " br").before("<div class='" + tabCounter + "'><p>" + todo.description + " <button class='destroy " + tabCounter + "'>x</button></p></div>");
           });
           //for All tab
           $("#tab1 ." + tabCounter + ".todo").append("<br /><hr />");
@@ -55,7 +55,9 @@
         //for both tabs
         $("body").on("click", ".destroy", function () {
           var toNuke = $(this).attr("class").split("").slice(-1);
-          $("." + toNuke).remove();
+          $("." + toNuke).fadeOut(1000, function () {
+            $("." + toNuke).remove();
+          });
         });
 
         //Add tab
@@ -77,8 +79,8 @@
           }
           //for Categories tab
           for (tCount = 0; tCount < tagArray.length; tCount += 1) {
-            $("#tab2").append("<div id ='" + tagArray[tCount] + "'><h3>" + tagArray[tCount] + "</h3><br /><hr /></div>");
-            $("#tab2 #" + tagArray[tCount] + " br").before("<span class='" + tabCounter + "'><p>" + $("#addToDo").val() + " <button class='destroy " + tabCounter + "'>x</button></p></span>");
+            $("#tab2").append("<div id ='" + tagArray[tCount].split(" ").join("") + "'><h3>" + tagArray[tCount] + "</h3><br /><hr /></div>");
+            $("#tab2 #" + tagArray[tCount].split(" ").join("") + " br").before("<div class='" + tabCounter + "'><p>" + $("#addToDo").val() + " <button class='destroy " + tabCounter + "'>x</button></p></div>");
           }
           //for All tab
           $("#tab1 ." + tabCounter + ".todo").append("<br /><hr />");
