@@ -77,3 +77,11 @@ hr {
   margin-left: auto;
   margin-bottom: 50px;
 }
+
+#added {
+  display: none;
+}
+
+#tab3 {
+  height: 170px;
+}

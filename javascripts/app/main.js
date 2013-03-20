@@ -20,10 +20,10 @@
         };
 
       $.getJSON("all.json", function (todos) {
-        
+
         todos.forEach(function (todo) {
           todo.categories.forEach(function (category) {
-             stack.push(category);
+            stack.push(category);
           });
         });
 
@@ -45,32 +45,46 @@
             //for All tab
             $("#tab1 ." + tabCounter + ".todo").append("<p>" + category + "</p>");
             //for Categories tab
-            $("#tab2 #" + category + " br").before("<span class='" + tabCounter + "'><p>" + todo.description 
-            + " <button class='destroy " + tabCounter + "'>x</button></p></span>");
+            $("#tab2 #" + category + " br").before("<span class='" + tabCounter + "'><p>" + todo.description + " <button class='destroy " + tabCounter + "'>x</button></p></span>");
           });
           //for All tab
           $("#tab1 ." + tabCounter + ".todo").append("<br /><hr />");
           tabCounter += 1;
-        });        
-        
+        });
+
         //for both tabs
         $("body").on("click", ".destroy", function () {
           var toNuke = $(this).attr("class").split("").slice(-1);
           $("." + toNuke).remove();
         });
 
-        
-        
-        /*$('body').on("click", ".destroy", function () {
-          $("#tab2").filter(function (index) {
-            return $(todo.description, this);
-          }).parent().remove();
-          $(this).parent().parent().remove();
-        });*/
-
         //Add tab
+        $("#addToDo").val("task goes here");
+        $("#addTags").val("tags go here");
 
-        //end Add tab
+        $("body").on("click", "#submit", function () {
+          $("#added").fadeOut(200);
+          $("#added").fadeIn(1000);
+
+          var tagArray = $("#addTags").val().split(","),
+            tCount;
+
+          $("#tab1").append("<div class='todo " + tabCounter + "'></div>");
+          $("#tab1 ." + tabCounter + ".todo").append("<h3>" + $("#addToDo").val() + " <button class='destroy " + tabCounter + "'>x</button></h3>" + "<h4>tagged: </h4>");
+          //for All tab
+          for (tCount = 0; tCount < tagArray.length; tCount += 1) {
+            $("#tab1 ." + tabCounter + ".todo").append("<p>" + tagArray[tCount] + "</p>");
+          }
+          //for Categories tab
+          for (tCount = 0; tCount < tagArray.length; tCount += 1) {
+            $("#tab2").append("<div id ='" + tagArray[tCount] + "'><h3>" + tagArray[tCount] + "</h3><br /><hr /></div>");
+            $("#tab2 #" + tagArray[tCount] + " br").before("<span class='" + tabCounter + "'><p>" + $("#addToDo").val() + " <button class='destroy " + tabCounter + "'>x</button></p></span>");
+          }
+          //for All tab
+          $("#tab1 ." + tabCounter + ".todo").append("<br /><hr />");
+
+          tabCounter += 1;
+        });
       });
 
       setUpClickHandler($(".tabcontainer .tab"));
