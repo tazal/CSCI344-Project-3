@@ -6,7 +6,7 @@
     main = function () {
       var stack = [],
         i = 0,
-        firstTabCounter = 0,
+        tabCounter = 0,
         setUpClickHandler = function (anchor) {
           anchor.click(function () {
             var target = $(this).attr("href");
@@ -20,28 +20,10 @@
         };
 
       $.getJSON("all.json", function (todos) {
-
-        //populates All tab
-        todos.forEach(function (todo) {
-          $("#tab1").append("<div id='todos" + firstTabCounter + "'></div>")
-          $("#tab1 #todos" + firstTabCounter).append("<h3>" + todo.description + " <button class='destroy'>x</button></h3>" + "<h4>tagged: </h4>");
-          todo.categories.forEach(function (category) {
-            $("#tab1 #todos" + firstTabCounter).append("<p>" + category + "</p>");
-          });
-          $("#tab1 #todos" + firstTabCounter).append("<br /><hr />");
-          firstTabCounter += 1;
-        });
-
-        $('body').on("click", ".destroy", function () {
-          $(this).parent().parent().remove();          
-        });
-        //end All tab
-
-
-        //populates Categories tab    
+        
         todos.forEach(function (todo) {
           todo.categories.forEach(function (category) {
-            stack.push(category);
+             stack.push(category);
           });
         });
 
@@ -51,17 +33,36 @@
         });
 
         unique.forEach(function (tag) {
-          $("#tab2").append("<div id ='" + unique[i] + "'><h3>" + tag + "</h3></div><br />");
+          $("#tab2").append("<div id ='" + unique[i] + "'><h3>" + tag + "</h3><br /><hr /></div>");
           i += 1;
         });
 
+        //populates All and Categories tabs
         todos.forEach(function (todo) {
+          $("#tab1").append("<div id='todos" + tabCounter + "'></div>");
+          $("#tab1 #todos" + tabCounter).append("<h3>" + todo.description + " <button class='destroy'>x</button></h3>" + "<h4>tagged: </h4>");
           todo.categories.forEach(function (category) {
-            $("#" + category).append("<p>" + todo.description + "</p>");
+            //for tab 1
+            $("#tab1 #todos" + tabCounter).append("<p>" + category + "</p>");
+            //for tab 2
+            $("#" + category + " br").before("<span class='" + todo.description + "'><p>" + todo.description 
+            + " <button class='destroy'>x</button></p></span>");
           });
+          $("#tab1 #todos" + tabCounter).append("<br /><hr />");
+        });        
+        
+        $('body').on("click", ".destroy", function () {
+            $(this).parent().parent().remove();
         });
-        //end Categories tab
 
+        
+        
+        /*$('body').on("click", ".destroy", function () {
+          $("#tab2").filter(function (index) {
+            return $(todo.description, this);
+          }).parent().remove();
+          $(this).parent().parent().remove();
+        });*/
 
         //Add tab
 
@@ -69,7 +70,7 @@
       });
 
       setUpClickHandler($(".tabcontainer .tab"));
-      
+
 
     };
 
