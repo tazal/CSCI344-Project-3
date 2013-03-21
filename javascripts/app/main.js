@@ -5,8 +5,10 @@
     document = window.document,
     main = function () {
       var stack = [],
+        unique = [],
         i = 0,
         tabCounter = 0,
+        compareCounter,
         setUpClickHandler = function (anchor) {
           anchor.click(function () {
             var target = $(this).attr("href");
@@ -31,7 +33,7 @@
         });
 
         //http://stackoverflow.com/questions/5381621/jquery-function-to-get-all-unique-elements-from-an-array
-        var unique = stack.filter(function (itm, i, a) {
+        unique = stack.filter(function (itm, i, a) {
           return i === a.indexOf(itm);
         });
 
@@ -72,7 +74,8 @@
           $("#added").fadeIn(1000);
 
           var tagArray = $("#addTags").val().split(","),
-            tCount;
+            tCount,
+            isUnique;
 
           $("#tab1").append("<div class='todo " + tabCounter + "'></div>");
           $("#tab1 ." + tabCounter + ".todo").append("<h3>" + $("#addToDo").val() + " <button class='destroy " + tabCounter + "'>x</button></h3>" + "<h4>tagged: </h4>");
@@ -81,17 +84,31 @@
             $("#tab1 ." + tabCounter + ".todo").append("<p>" + tagArray[tCount] + "</p>");
           }
           //for Categories tab
+
           for (tCount = 0; tCount < tagArray.length; tCount += 1) {
-            $("#tab2").append("<div id ='" + tagArray[tCount].split(" ").join("") + "'><h3>" + tagArray[tCount] + "</h3><br /><hr /></div>");
+            for (compareCounter = 0; compareCounter < unique.length; compareCounter += 1) {
+              if (tagArray[tCount] === unique[compareCounter]) {
+                isUnique = false;
+                break;
+              } else if (tagArray[tCount] !== unique[compareCounter]) {
+                isUnique = true;
+              }
+            }
+
+            if (isUnique === true) {
+              unique.push(tagArray[tCount]);
+              $("#tab2").append("<div id ='" + tagArray[tCount].split(" ").join("") + "'><h3>" + tagArray[tCount] + "</h3><br /><hr /></div>");
+            }
+
             $("#tab2 #" + tagArray[tCount].split(" ").join("") + " br").before("<div class='" + tabCounter + "'><p>" + $("#addToDo").val() + " <button class='destroy " + tabCounter + "'>x</button></p></div>");
           }
+
           //for All tab
           $("#tab1 ." + tabCounter + ".todo").append("<br /><hr />");
 
           tabCounter += 1;
         });
       });
-
       setUpClickHandler($(".tabcontainer .tab"));
     };
 
