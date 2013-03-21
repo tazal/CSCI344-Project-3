@@ -59,7 +59,7 @@
 
         //for both tabs
         $("body").on("click", ".destroy", function () {
-          var toNuke = $(this).attr("class").split("").slice(-1);
+          var toNuke = $(this).attr("class").split(" ").slice(-1);
           $("." + toNuke).fadeOut(1000, function () {
             $("." + toNuke).remove();
           });
@@ -83,6 +83,7 @@
           for (tCount = 0; tCount < tagArray.length; tCount += 1) {
             $("#tab1 ." + tabCounter + ".todo").append("<p>" + tagArray[tCount] + "</p>");
           }
+          
           //for Categories tab
 
           for (tCount = 0; tCount < tagArray.length; tCount += 1) {
